@@ -11,5 +11,5 @@ Repository = "https://github.com/hastla007/ComfyUI-VideoURLHelperSuite"
 #  Used by Comfy Registry https://comfyregistry.org
 [tool.comfy]
 PublisherId = "kosinkadink"
-DisplayName = "ComfyUI-VideoHelperSuite"
+DisplayName = "ComfyUI-VideoURLHelperSuite"
 Icon = ""

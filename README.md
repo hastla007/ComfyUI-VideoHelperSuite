@@ -11,8 +11,8 @@ Converts a video file into a series of images
 - skip_first_frames: How many frames to skip from the start of the video after adjusting for a forced frame rate. By incrementing this number by the frame_load_cap, you can easily process a longer input video in parts. 
 - select_every_nth: Allows for skipping a number of frames without considering the base frame rate or risking frame duplication. Often useful when working with animated gifs
 A path variant of the Load Video node exists that allows loading videos from external paths
-![step](https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite/assets/4284322/b5fc993c-5c9b-4608-afa4-48ae2e1380ef)
-![resize](https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite/assets/4284322/98d2e78e-1c44-443c-a8fe-0dab0b5947f3)
+![step](https://github.com/hastla007/ComfyUI-VideoURLHelperSuite/assets/4284322/b5fc993c-5c9b-4608-afa4-48ae2e1380ef)
+![resize](https://github.com/hastla007/ComfyUI-VideoURLHelperSuite/assets/4284322/98d2e78e-1c44-443c-a8fe-0dab0b5947f3)
 If [Advanced Previews](#advanced-previews) is enabled in the options menu of the web ui, the preview will reflect the current settings on the node.
 ### Load Image Sequence
 Loads all image files from a subfolder. Options are similar to Load Video.

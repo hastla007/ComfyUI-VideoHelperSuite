@@ -1777,7 +1777,7 @@ function mouseAnnotated(event, [x, y], node) {
 }
 let latentPreviewNodes = new Set()
 app.registerExtension({
-    name: "VideoHelperSuite.Core",
+    name: "VideoURLHelperSuite.Core",
     settings: [
       {
         id: 'VHS.AdvancedPreviews',
