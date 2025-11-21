@@ -458,16 +458,25 @@ class LoadVideoUpload:
     FUNCTION = "load_video"
 
     def load_video(self, **kwargs):
-        kwargs['video'] = folder_paths.get_annotated_filepath(strip_path(kwargs['video']))
+        video = strip_path(kwargs['video'])
+        if is_url(video):
+            video = try_download_video(video) or video
+        else:
+            video = folder_paths.get_annotated_filepath(video)
+        kwargs['video'] = video
         return load_video(**kwargs)
 
     @classmethod
     def IS_CHANGED(s, video, **kwargs):
+        if is_url(video):
+            return hash_path(video)
         image_path = folder_paths.get_annotated_filepath(video)
         return calculate_file_hash(image_path)
 
     @classmethod
     def VALIDATE_INPUTS(s, video):
+        if is_url(video):
+            return True
         if not folder_paths.exists_annotated_filepath(video):
             return "Invalid video file: {}".format(video)
         return True
@@ -557,7 +566,12 @@ class LoadVideoFFmpegUpload:
     FUNCTION = "load_video"
 
     def load_video(self, **kwargs):
-        kwargs['video'] = folder_paths.get_annotated_filepath(strip_path(kwargs['video']))
+        video = strip_path(kwargs['video'])
+        if is_url(video):
+            video = try_download_video(video) or video
+        else:
+            video = folder_paths.get_annotated_filepath(video)
+        kwargs['video'] = video
         image, _, audio, video_info =  load_video(**kwargs, generator=ffmpeg_frame_generator)
         if image.size(3) == 4:
             return (image[:,:,:,:3], 1-image[:,:,:,3], audio, video_info)
@@ -565,11 +579,15 @@ class LoadVideoFFmpegUpload:
 
     @classmethod
     def IS_CHANGED(s, video, **kwargs):
+        if is_url(video):
+            return hash_path(video)
         image_path = folder_paths.get_annotated_filepath(video)
         return calculate_file_hash(image_path)
 
     @classmethod
     def VALIDATE_INPUTS(s, video):
+        if is_url(video):
+            return True
         if not folder_paths.exists_annotated_filepath(video):
             return "Invalid video file: {}".format(video)
         return True
