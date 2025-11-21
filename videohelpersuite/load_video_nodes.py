@@ -15,7 +15,7 @@ import nodes
 from comfy.k_diffusion.utils import FolderOfImages
 from .logger import logger
 from .utils import BIGMAX, DIMMAX, calculate_file_hash, get_sorted_dir_files_from_directory,\
-        lazy_get_audio, hash_path, validate_path, strip_path, try_download_video,  \
+        lazy_get_audio, hash_path, validate_path, strip_path, try_download_video, ytdl_path,  \
         is_url, imageOrLatent, ffmpeg_path, ENCODE_ARGS, floatOrInt
 
 
@@ -54,6 +54,13 @@ def get_format(format):
 def is_gif(filename) -> bool:
     file_parts = filename.split('.')
     return len(file_parts) > 1 and file_parts[-1] == "gif"
+
+
+def download_or_error(video):
+    downloaded = try_download_video(video)
+    if downloaded is None:
+        raise Exception("Video URL downloads require yt-dlp or youtube-dl to be available.")
+    return downloaded
 
 
 def target_size(width, height, custom_width, custom_height, downscale_ratio=8) -> tuple[int, int]:
@@ -458,16 +465,27 @@ class LoadVideoUpload:
     FUNCTION = "load_video"
 
     def load_video(self, **kwargs):
-        kwargs['video'] = folder_paths.get_annotated_filepath(strip_path(kwargs['video']))
+        video = strip_path(kwargs['video'])
+        if is_url(video):
+            video = download_or_error(video)
+        else:
+            video = folder_paths.get_annotated_filepath(video)
+        kwargs['video'] = video
         return load_video(**kwargs)
 
     @classmethod
     def IS_CHANGED(s, video, **kwargs):
+        if is_url(video):
+            return hash_path(video)
         image_path = folder_paths.get_annotated_filepath(video)
         return calculate_file_hash(image_path)
 
     @classmethod
     def VALIDATE_INPUTS(s, video):
+        if is_url(video):
+            if ytdl_path is None:
+                return "Video URL downloads require yt-dlp or youtube-dl to be available."
+            return True
         if not folder_paths.exists_annotated_filepath(video):
             return "Invalid video file: {}".format(video)
         return True
@@ -508,7 +526,7 @@ class LoadVideoPath:
         if kwargs['video'] is None or validate_path(kwargs['video']) != True:
             raise Exception("video is not a valid path: " + kwargs['video'])
         if is_url(kwargs['video']):
-            kwargs['video'] = try_download_video(kwargs['video']) or kwargs['video']
+            kwargs['video'] = download_or_error(kwargs['video'])
         return load_video(**kwargs)
 
     @classmethod
@@ -557,7 +575,12 @@ class LoadVideoFFmpegUpload:
     FUNCTION = "load_video"
 
     def load_video(self, **kwargs):
-        kwargs['video'] = folder_paths.get_annotated_filepath(strip_path(kwargs['video']))
+        video = strip_path(kwargs['video'])
+        if is_url(video):
+            video = download_or_error(video)
+        else:
+            video = folder_paths.get_annotated_filepath(video)
+        kwargs['video'] = video
         image, _, audio, video_info =  load_video(**kwargs, generator=ffmpeg_frame_generator)
         if image.size(3) == 4:
             return (image[:,:,:,:3], 1-image[:,:,:,3], audio, video_info)
@@ -565,11 +588,17 @@ class LoadVideoFFmpegUpload:
 
     @classmethod
     def IS_CHANGED(s, video, **kwargs):
+        if is_url(video):
+            return hash_path(video)
         image_path = folder_paths.get_annotated_filepath(video)
         return calculate_file_hash(image_path)
 
     @classmethod
     def VALIDATE_INPUTS(s, video):
+        if is_url(video):
+            if ytdl_path is None:
+                return "Video URL downloads require yt-dlp or youtube-dl to be available."
+            return True
         if not folder_paths.exists_annotated_filepath(video):
             return "Invalid video file: {}".format(video)
         return True
@@ -609,7 +638,7 @@ class LoadVideoFFmpegPath:
         if kwargs['video'] is None or validate_path(kwargs['video']) != True:
             raise Exception("video is not a valid path: " + kwargs['video'])
         if is_url(kwargs['video']):
-            kwargs['video'] = try_download_video(kwargs['video']) or kwargs['video']
+            kwargs['video'] = download_or_error(kwargs['video'])
         image, _, audio, video_info =  load_video(**kwargs, generator=ffmpeg_frame_generator)
         if isinstance(image, dict):
             return (image, None, audio, video_info)
