@@ -189,7 +189,7 @@ descriptions = {
          'videopreview': 'Displays a preview for the selected video input. Will only be shown if Advanced Previews is enabled. This preview will reflect the frame_load_cap, force_rate, skip_first_frames, and select_every_nth values chosen. If the video has audio, it will also be previewed when moused over. Additional preview options can be accessed with right click.',
          }
         }],
-  'VHS_LoadVideoFFmpegPath': ['Load Video FFmpeg (Path) 🎥🅥🅗🅢', short_desc('Loads a video from an arbitrary path using ffmpeg instead of opencv'),
+  'VHS_LoadVideoFFmpegPath': ['Load Video FFmpeg (Path & URL) 🎥🅥🅗🅢', short_desc('Loads a video from an arbitrary path or URL using ffmpeg instead of opencv'),
     'Provides faster execution speed, transparency support, and allows specifying start time in seconds',
     {'Inputs': {
         'meta_batch': '(optional) Connect to a Meta Batch manager to divide extremely long sequences into sub batches. See the documentation for Meta Batch Manager',
@@ -266,7 +266,7 @@ descriptions = {
          'videopreview': 'Displays a preview for the selected video input. Will only be shown if Advanced Previews is enabled. This preview will reflect the image_load_cap, skip_first_images, and select_every_nth values chosen. Additional preview options can be accessed with right click.',
          }
         }],
-  "VHS_LoadAudio": ['Load Audio (Path) 🎥🅥🅗🅢', short_desc('Loads an audio file from an arbitrary path'),
+  "VHS_LoadAudio": ['Load Audio (Path & URL) 🎥🅥🅗🅢', short_desc('Loads an audio file from an arbitrary path or URL'),
     {'Outputs': {
          'audio': 'The loaded audio',
          },
