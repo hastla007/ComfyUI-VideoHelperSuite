@@ -8,6 +8,8 @@ import time
 from collections.abc import Mapping
 from typing import Union
 import functools
+import urllib.request
+from urllib.parse import urlparse
 import torch
 from torch import Tensor
 
@@ -122,6 +124,32 @@ def try_download_video(url):
         file = None
     download_history[url] = file
     return file
+
+
+def download_file(url):
+    if url in download_history:
+        return download_history[url]
+
+    os.makedirs(folder_paths.get_temp_directory(), exist_ok=True)
+    parsed = urlparse(url)
+    filename = os.path.basename(parsed.path) or f"download-{int(time.time())}"
+    destination = os.path.join(folder_paths.get_temp_directory(), filename)
+    base, ext = os.path.splitext(destination)
+    copy_index = 1
+    while os.path.exists(destination):
+        destination = f"{base}-{copy_index}{ext}"
+        copy_index += 1
+
+    try:
+        with urllib.request.urlopen(url) as response, open(destination, "wb") as file_obj:
+            if hasattr(response, "status") and response.status >= 400:
+                raise Exception(f"HTTP error {response.status}")
+            shutil.copyfileobj(response, file_obj)
+    except Exception as e:
+        raise Exception(f"Failed to download file from URL '{url}': {e}")
+
+    download_history[url] = destination
+    return destination
 
 def is_safe_path(path, strict=False):
     if "VHS_STRICT_PATHS" not in os.environ and not strict:

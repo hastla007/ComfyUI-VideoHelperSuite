@@ -16,7 +16,7 @@ from comfy.k_diffusion.utils import FolderOfImages
 from .logger import logger
 from .utils import BIGMAX, DIMMAX, calculate_file_hash, get_sorted_dir_files_from_directory,\
         lazy_get_audio, hash_path, validate_path, strip_path, try_download_video, ytdl_path,  \
-        is_url, imageOrLatent, ffmpeg_path, ENCODE_ARGS, floatOrInt
+        is_url, imageOrLatent, ffmpeg_path, ENCODE_ARGS, floatOrInt, download_file
 
 
 video_extensions = ['webm', 'mp4', 'mkv', 'gif', 'mov']
@@ -679,9 +679,15 @@ class LoadImagePath:
     FUNCTION = "load_image"
 
     def load_image(self, **kwargs):
-        if kwargs['image'] is None or validate_path(kwargs['image']) != True:
-            raise Exception("image is not a valid path: " + kwargs['image'])
-        kwargs.update({'video':  kwargs['image'], 'force_rate': 0, 'frame_load_cap': 0,
+        if kwargs['image'] is None:
+            raise Exception("image is not a valid path: " + str(kwargs['image']))
+        image = kwargs['image']
+        if is_url(image):
+            image = download_file(image)
+        elif validate_path(image) != True:
+            raise Exception("image is not a valid path: " + image)
+
+        kwargs.update({'video':  image, 'force_rate': 0, 'frame_load_cap': 0,
                       'start_time': 0})
         kwargs.pop('image')
         image, _, _, _ =  load_video(**kwargs, generator=ffmpeg_frame_generator)
@@ -697,4 +703,6 @@ class LoadImagePath:
 
     @classmethod
     def VALIDATE_INPUTS(s, image):
+        if is_url(image):
+            return True
         return validate_path(image, allow_none=True)
