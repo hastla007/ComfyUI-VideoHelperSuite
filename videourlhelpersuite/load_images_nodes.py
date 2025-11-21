@@ -145,7 +145,7 @@ class LoadImagesFromDirectoryUpload:
     RETURN_NAMES = ("IMAGE", "MASK", "frame_count")
     FUNCTION = "load_images"
 
-    CATEGORY = "Video Helper Suite 🎥🅥🅗🅢"
+    CATEGORY = "Video URL Helper Suite 🎥🅥🅗🅢"
 
     def load_images(self, directory: str, **kwargs):
         directory = folder_paths.get_annotated_filepath(strip_path(directory))
@@ -184,7 +184,7 @@ class LoadImagesFromDirectoryPath:
     RETURN_NAMES = ("IMAGE", "MASK", "frame_count")
     FUNCTION = "load_images"
 
-    CATEGORY = "Video Helper Suite 🎥🅥🅗🅢"
+    CATEGORY = "Video URL Helper Suite 🎥🅥🅗🅢"
 
     def load_images(self, directory: str, **kwargs):
         directory = strip_path(directory)
