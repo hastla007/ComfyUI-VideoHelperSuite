@@ -39,7 +39,7 @@ Depending on the format chosen, additional options may become available, includi
 - save_metadata: Includes a copy of the workflow in the output video which can be loaded by dragging and dropping the video, just like with images.
 - pix_fmt: Changes how the pixel data is stored. `yuv420p10le` has higher color quality, but won't work on all devices
 ### Load Audio
-Provides a way to load standalone audio files.
+Provides a way to load standalone audio files from a path or URL.
 - seek_seconds: An optional start time for the audio file in seconds.
 
 ## Latent/Image Nodes
@@ -55,7 +55,7 @@ The first of every `select_every_nth` input is passed and the remainder are disc
 ### Duplicate Batch
 
 ## Video Previews
-Load Video (Upload), Load Video (Path), Load Images (Upload), Load Images (Path) and Video Combine provide animated previews.  
+Load Video (Upload), Load Video (URL & Path), Load Video FFmpeg (Upload), Load Video FFmpeg (Path & URL), Load Images (Upload), Load Images (URL & Path) and Video Combine provide animated previews.
 Nodes with previews provide additional functionality when right clicked
 - Open preview
 - Save preview
