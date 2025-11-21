@@ -127,7 +127,7 @@
   "tests": {
       "3": [{"type": "video", "key": "width", "value": 304},
           {"type": "video", "key": "height", "value": 232},
-          {"type": "compare", "filename": "custom_nodes/ComfyUI-VideoHelperSuite/tests/outputs/simple.webm", "tolerance": 0.02}
+          {"type": "compare", "filename": "custom_nodes/ComfyUI-VideoURLHelperSuite/tests/outputs/simple.webm", "tolerance": 0.02}
       ],
       "length": 1
   }

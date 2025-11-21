@@ -45,7 +45,7 @@ common_descriptions = {
   'crop_method': 'When sizes don\'t match, should the resized image have it\'s aspect ratio changed, or be cropped to maintain aspect ratio',
   'VHS_PATH': [
     'This is a VHS_PATH input. When edited, it provides a list of possible valid files or directories',
-    video('https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite/assets/4284322/729b7185-1fca-41d8-bc8d-a770bb2a5ce6'),
+    video('https://github.com/hastla007/ComfyUI-VideoURLHelperSuite/assets/4284322/729b7185-1fca-41d8-bc8d-a770bb2a5ce6'),
     'The current top-most completion may be selected with Tab',
     'You can navigate up a directory by pressing Ctrl+B (or Ctrl+W if supported by browser)',
     'The filter on suggested file types can be disabled by pressing Ctrl+G.',
@@ -319,7 +319,7 @@ descriptions = {
   "VHS_BatchManager": ['Meta Batch Manager 🎥🅥🅗🅢', short_desc('Split the processing of a very long video into sets of smaller Meta Batches'),
     "The Meta Batch Manager allows for extremely long input videos to be processed when all other methods for fitting the content in RAM fail. It does not effect VRAM usage.",
     "It must be connected to at least one Input (a Load Video or Load Images) AND at least one Video Combine",
-    image("https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite/assets/4284322/7cb3fb7e-59d8-4cb2-a09f-9c6698de8b1f"),
+    image("https://github.com/hastla007/ComfyUI-VideoURLHelperSuite/assets/4284322/7cb3fb7e-59d8-4cb2-a09f-9c6698de8b1f"),
     "It functions by holding both the inputs and ouputs open between executions, and automatically requeue's the workflow until one of the inputs is unable to provide additional images.",
     "Because each sub execution only contains a subset of the total frames, each sub execution creates a hard window which temporal smoothing can not be applied across. This results in jumps in the output.",
     {'Outputs': {

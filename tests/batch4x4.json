@@ -528,7 +528,7 @@
   "tests": {
       "17": [{"type": "video", "key": "nb_read_packets", "value": "16"}],
       "11": [{"type": "video", "key": "nb_read_packets", "value": "16"},
-          {"type": "compare", "filename": "custom_nodes/ComfyUI-VideoHelperSuite/tests/outputs/batch.mp4", "tolerance": 0.02}
+          {"type": "compare", "filename": "custom_nodes/ComfyUI-VideoURLHelperSuite/tests/outputs/batch.mp4", "tolerance": 0.02}
       ],
       "length": 1
   }
