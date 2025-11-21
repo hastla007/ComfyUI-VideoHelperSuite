@@ -265,7 +265,7 @@ class VideoCombine:
     RETURN_TYPES = ("VHS_FILENAMES",)
     RETURN_NAMES = ("Filenames",)
     OUTPUT_NODE = True
-    CATEGORY = "Video Helper Suite 🎥🅥🅗🅢"
+    CATEGORY = "Video URL Helper Suite 🎥🅥🅗🅢"
     FUNCTION = "combine_video"
 
     def combine_video(
@@ -639,7 +639,7 @@ class LoadAudio:
 
     RETURN_TYPES = ("AUDIO", "FLOAT")
     RETURN_NAMES = ("audio", "duration")
-    CATEGORY = "Video Helper Suite 🎥🅥🅗🅢/audio"
+    CATEGORY = "Video URL Helper Suite 🎥🅥🅗🅢/audio"
     FUNCTION = "load_audio"
     def load_audio(self, audio_file, seek_seconds=0, duration=0):
         audio_file = strip_path(audio_file)
@@ -679,7 +679,7 @@ class LoadAudioUpload:
                      },
                 }
 
-    CATEGORY = "Video Helper Suite 🎥🅥🅗🅢/audio"
+    CATEGORY = "Video URL Helper Suite 🎥🅥🅗🅢/audio"
 
     RETURN_TYPES = ("AUDIO", "FLOAT")
     RETURN_NAMES = ("audio", "duration")
@@ -709,7 +709,7 @@ class AudioToVHSAudio:
     @classmethod
     def INPUT_TYPES(s):
         return {"required": {"audio": ("AUDIO",)}}
-    CATEGORY = "Video Helper Suite 🎥🅥🅗🅢/audio"
+    CATEGORY = "Video URL Helper Suite 🎥🅥🅗🅢/audio"
 
     RETURN_TYPES = ("VHS_AUDIO", )
     RETURN_NAMES = ("vhs_audio",)
@@ -739,7 +739,7 @@ class VHSAudioToAudio:
     @classmethod
     def INPUT_TYPES(s):
         return {"required": {"vhs_audio": ("VHS_AUDIO",)}}
-    CATEGORY = "Video Helper Suite 🎥🅥🅗🅢/audio"
+    CATEGORY = "Video URL Helper Suite 🎥🅥🅗🅢/audio"
 
     RETURN_TYPES = ("AUDIO", )
     RETURN_NAMES = ("audio",)
@@ -780,7 +780,7 @@ class PruneOutputs:
 
     RETURN_TYPES = ()
     OUTPUT_NODE = True
-    CATEGORY = "Video Helper Suite 🎥🅥🅗🅢"
+    CATEGORY = "Video URL Helper Suite 🎥🅥🅗🅢"
     FUNCTION = "prune_outputs"
 
     def prune_outputs(self, filenames, options):
@@ -848,7 +848,7 @@ class BatchManager:
 
     RETURN_TYPES = ("VHS_BatchManager",)
     RETURN_NAMES = ("meta_batch",)
-    CATEGORY = "Video Helper Suite 🎥🅥🅗🅢"
+    CATEGORY = "Video URL Helper Suite 🎥🅥🅗🅢"
     FUNCTION = "update_batch"
 
     def update_batch(self, frames_per_batch, prompt=None, unique_id=None):
@@ -876,7 +876,7 @@ class VideoInfo:
                     }
                 }
 
-    CATEGORY = "Video Helper Suite 🎥🅥🅗🅢"
+    CATEGORY = "Video URL Helper Suite 🎥🅥🅗🅢"
 
     RETURN_TYPES = ("FLOAT","INT", "FLOAT", "INT", "INT", "FLOAT","INT", "FLOAT", "INT", "INT")
     RETURN_NAMES = (
@@ -915,7 +915,7 @@ class VideoInfoSource:
                     }
                 }
 
-    CATEGORY = "Video Helper Suite 🎥🅥🅗🅢"
+    CATEGORY = "Video URL Helper Suite 🎥🅥🅗🅢"
 
     RETURN_TYPES = ("FLOAT","INT", "FLOAT", "INT", "INT",)
     RETURN_NAMES = (
@@ -947,7 +947,7 @@ class VideoInfoLoaded:
                     }
                 }
 
-    CATEGORY = "Video Helper Suite 🎥🅥🅗🅢"
+    CATEGORY = "Video URL Helper Suite 🎥🅥🅗🅢"
 
     RETURN_TYPES = ("FLOAT","INT", "FLOAT", "INT", "INT",)
     RETURN_NAMES = (
@@ -975,7 +975,7 @@ class SelectFilename:
         return {"required": {"filenames": ("VHS_FILENAMES",), "index": ("INT", {"default": -1, "step": 1, "min": -1})}}
     RETURN_TYPES = ("STRING",)
     RETURN_NAMES =("Filename",)
-    CATEGORY = "Video Helper Suite 🎥🅥🅗🅢"
+    CATEGORY = "Video URL Helper Suite 🎥🅥🅗🅢"
     FUNCTION = "select_filename"
 
     def select_filename(self, filenames, index):
@@ -990,7 +990,7 @@ class Unbatch:
     RETURN_TYPES = (Any('*'),)
     INPUT_IS_LIST = True
     RETURN_NAMES =("unbatched",)
-    CATEGORY = "Video Helper Suite 🎥🅥🅗🅢"
+    CATEGORY = "Video URL Helper Suite 🎥🅥🅗🅢"
     FUNCTION = "unbatch"
     def unbatch(self, batched):
         if isinstance(batched[0], torch.Tensor):
@@ -1014,7 +1014,7 @@ class SelectLatest:
                              "filename_postfix": ("STRING", {"placeholder": ".webm"})}}
     RETURN_TYPES = ("STRING",)
     RETURN_NAMES =("Filename",)
-    CATEGORY = "Video Helper Suite 🎥🅥🅗🅢"
+    CATEGORY = "Video URL Helper Suite 🎥🅥🅗🅢"
     FUNCTION = "select_latest"
     EXPERIMENTAL = True
 
