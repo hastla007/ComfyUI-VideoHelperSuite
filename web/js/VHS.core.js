@@ -2353,7 +2353,7 @@ app.registerExtension({
                 }
             }
             if (filepath && copiedPath == filepath) {
-                //Add a Load Video (Path) and populate filepath
+                //Add a Load Video (URL & Path) and populate filepath
                 const pastedNode = LiteGraph.createNode('VHS_LoadVideoPath')
                 app.canvas.graph.add(pastedNode)
                 pastedNode.pos[0] = app.canvas.graph_mouse[0]
