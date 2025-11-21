@@ -1,4 +1,4 @@
-# ComfyUI-VideoHelperSuite
+# ComfyUI-VideoURLHelperSuite
 Nodes related to video workflows
 
 ## I/O Nodes
