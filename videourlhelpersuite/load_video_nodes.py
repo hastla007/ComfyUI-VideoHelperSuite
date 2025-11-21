@@ -57,10 +57,10 @@ def is_gif(filename) -> bool:
 
 
 def download_or_error(video):
-    downloaded = try_download_video(video)
-    if downloaded is None:
-        raise Exception("Video URL downloads require yt-dlp or youtube-dl to be available.")
-    return downloaded
+    try:
+        return try_download_video(video)
+    except Exception as exc:
+        raise Exception(f"Unable to download video from URL: {exc}")
 
 
 def target_size(width, height, custom_width, custom_height, downscale_ratio=8) -> tuple[int, int]:
@@ -483,8 +483,6 @@ class LoadVideoUpload:
     @classmethod
     def VALIDATE_INPUTS(s, video):
         if is_url(video):
-            if ytdl_path is None:
-                return "Video URL downloads require yt-dlp or youtube-dl to be available."
             return True
         if not folder_paths.exists_annotated_filepath(video):
             return "Invalid video file: {}".format(video)
@@ -596,8 +594,6 @@ class LoadVideoFFmpegUpload:
     @classmethod
     def VALIDATE_INPUTS(s, video):
         if is_url(video):
-            if ytdl_path is None:
-                return "Video URL downloads require yt-dlp or youtube-dl to be available."
             return True
         if not folder_paths.exists_annotated_filepath(video):
             return "Invalid video file: {}".format(video)
